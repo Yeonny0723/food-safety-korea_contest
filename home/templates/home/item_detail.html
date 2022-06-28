@@ -1,0 +1,54 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+    <br>
+    <div class='top_bar'>
+        <h2 class="ui horizontal divider header">
+            <i class="hand point right outline icon"></i>{{ name }}
+        </h2>
+        <h6><i class="bookmark outline icon"></i>{{ like }}</h6>
+        <h6>{{ mfr }}</h6>
+    </div>
+    <div class='item_info'>
+            <span><i class="angle right icon"></i><strong>&nbsp;&nbsp;
+                {% for org in organs %}
+                    {{ org }}</strong>
+                {% endfor %}
+                에 도움
+            </span> <br>
+            <span><i class="angle right icon"></i><strong>&nbsp;&nbsp;
+                {{ organ }}에 좋은 원료</strong>: {{ el }}</span> <br>
+            
+                <span class='sim_item'>
+                    <span><strong>유사 건강기능식품:</strong></span>
+                    <div class='hash_tag'>
+                    {% for idx,sim_item in zipped_similar_items %}
+                        <a href='/home/item/{{ idx }}'>
+                            <span style='color:#407bee'>#{{ sim_item }}&nbsp;&nbsp;</span>
+                        </a>
+                    {% endfor %}
+                    </div>
+                </span>
+        </div>
+        <div class='item_detail'>
+            <br><span><h4 class="ui horizontal divider header"><strong><br>
+                <i class="plus icon"> </i>&nbsp;&nbsp;효능</strong></h4><br>{{ effect }}</span> <br>
+            <br><span><h4 class="ui horizontal divider header"><strong><br>
+                <i class="pills icon"> </i>&nbsp;&nbsp;섭취방법</strong></h4><br>{{ guide }}</span> <br>
+            <br><span><h4 class="ui horizontal divider header"><strong><br>
+               <i class="exclamation icon"></i>&nbsp;&nbsp;주의사항</strong></h4><br>{{ caution }}</span> <br><br>
+        </div>
+    </div>
+    <div class='organ_info'>
+        <span><h4 class="ui horizontal divider header"><strong>
+            <i class="question icon"></i>&nbsp;&nbsp;{{ organ }}관련 FAQ </strong></h4>
+        {% for question in qa %}
+            <p>Q. {{ question.질문 }}</p>
+            <p>A.{{ question.답변.0 }}</p>
+            {% if question.답변.1 %}
+                <p>A.{{ question.답변.1 }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

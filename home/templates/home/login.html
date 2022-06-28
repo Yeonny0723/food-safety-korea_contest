@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>Django 식품안전나라 (version 1.0)</title>
+ <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+ <link href="//fonts.googleapis.com/css?family=Do+Hyeon%7CNoto+Sans&display=swap" rel="stylesheet">
+ <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+ <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+ <link rel="stylesheet" type="text/css" href="{% static 'semantic/components/icon.css' %}">     
+ <link rel="stylesheet" type="text/css" href="{% static 'semantic/semantic.css' %}">
+ <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+ <script src="{% static 'semantic/semantic.js' %}"></script>
+</head>
+    
+    {% if user.is_authenticated %}
+        로그인 성공ㅋ2
+    {{ user.username }}님 환영합니다
+    <a href="{% url 'home:logout' %}">로그아웃</a>
+    {% else %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input name='username' type='text'>
+        <input name='password' type='password'>
+        <input type='submit' value='로그인'>
+    </form>
+    <a href="{% url 'home:signup' %}">회원가입</a>
+    {% endif %}
+</body>
+</html>
+
+

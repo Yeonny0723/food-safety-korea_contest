@@ -1,0 +1,31 @@
+글 포스팅 페이지...
+
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <h3>후기 작성</h3>
+    <div class="text_post-container">
+        <h4>글 작성</h4>
+        <div class='text_post'>
+            <textarea placeholder="
+                - 관심 질환 및 신체 기능은 무엇이었는지
+                - 해당 건강기능식품 선택 이유
+                - 복용 기한
+                - 구매처
+                - 실제 효능 및 부작용
+                등을 입력해주시면 도움되는 후기를 올릴 수 있어요.
+                                   ">
+            </textarea>
+        <</div>
+    </div>
+    <div class='img_post-container'>
+        <h4>사진</h4>
+        <!-- <input type="image" id="image" alt="Login"
+           src="/media/examples/login-button.png">
+     -->
+    </div>
+</form>
+{% endblock %}

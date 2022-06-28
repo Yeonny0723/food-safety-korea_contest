@@ -1,0 +1,48 @@
+.list_container_recipes{
+    display:flex;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.list_container_items{
+    display:flex;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+a {
+    color: rgba(0,0,0,.7)!important;
+}
+
+.result_row>a{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.hash_tag{
+    color: #407bee;
+}
+
+.nav_bottom_bar{
+    position: fixed;
+    height: 10%;
+    bottom: -2%;
+}
+
+.outer_box{
+    padding-bottom: 4%;
+}
+
+body > .grid {
+    height: 100%;
+}
+.image {
+    margin-top: -100px;
+}
+.column {
+    max-width: 450px;
+}
+footer{
+    margin-top: 10%;
+}

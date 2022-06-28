@@ -1,0 +1,11 @@
+# 관심 질환 및 관심 기관 등록
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>관심 질환</p>
+    <input name='disease' type='text' placeholder="키워드를 입력해주세요. (예: 당뇨)">
+    <p>관심 기관</p>
+    <input name='organ' type='text' placeholder="키워드를 입력해주세요. (예: 심장)">
+    <input type='submit' value='등록'>
+</form>

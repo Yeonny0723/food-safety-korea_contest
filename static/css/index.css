@@ -1,0 +1,61 @@
+body {
+    font-family: 'Helvetica Neue', 'Helvetica', 'Apple SD Gothic Neo', 'NanumBarunGothic', 'Malgun Gothic', dotum, 'Lucida Grande', sans-serif;
+    text-align:center;
+    width:100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.list_container_recipes{
+    display:flex;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.list_container_items{
+    display:flex;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+a {
+    color: rgba(0,0,0,.7)!important;
+}
+
+.result_row>a{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.hash_tag{
+    color: #407bee;
+}
+.center{
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* .menu{
+    position: fixed;
+    height: 10%;
+    bottom: -2%;
+} */
+
+.outer_box{
+    padding-bottom: 4%;
+}
+
+body > .grid {
+    height: 100%;
+}
+.image {
+    margin-top: -100px;
+}
+.column {
+    max-width: 450px;
+}
+footer{
+    margin-top: 10%;
+}

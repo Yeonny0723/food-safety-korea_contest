@@ -1,0 +1,49 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<div class = 'recipe_detail'>
+        
+    <div class='top_bar'>
+        <br>
+        <h2 class="ui horizontal divider header">
+            <i class="hand point right outline icon"></i>{{ name }}
+        </h2>
+        <h6><i class="bookmark outline icon"></i>{{ bookmark }}</h6>
+    </div>
+    <div class='recipe_info'>
+            <span><i class="angle right icon"></i><strong>&nbsp;&nbsp;{{ disease }}</strong>에 도움</span> <br>
+            <span><i class="angle right icon"></i><strong>&nbsp;&nbsp;{{ disease }}에 좋은 재료</strong>: {{ igd_disease }}</span> <br>
+            <div class='similar_menu_hash_tag'>
+                <i class="tags icon"></i>
+                <strong>유사 레시피: </strong>
+                
+                {% for idx, dish_name in similar_menus %}
+                    <a href = '/home/recipe/{{ idx }}'>
+                        <span class='hash_tag'>#{{ dish_name }}&nbsp;&nbsp;</span>
+                    </a>
+                {% endfor %}
+            </div>
+                
+        <h4 class="ui horizontal divider header">
+            <i class="shopping bag icon"> </i>
+            <span class="center"><strong> &nbsp;&nbsp;준비물 </strong></h4> {{ igd_recipe }}</span><br>
+
+        <h4 class="ui horizontal divider header">
+            <i class="flask icon"> </i>
+            <span class="center"><strong> &nbsp;&nbsp;계량 </strong></h4> {{ igd_ms }}</span><br><br>
+
+    </div>
+    <div class='recipe_container'>
+        <h4 class="ui horizontal divider header">
+            <i class="utensils icon"> </i>
+            <strong> &nbsp;&nbsp;조리 방법 </strong></h4>
+            <ol class='recipe_steps'>
+                {% for str,img in recipe_steps %}
+                    <li>{{ str }}</li>
+                    <img src='{{ img }}' width="190" height="150"><br><br>
+                {% endfor %}
+            </ol>
+    </div>
+</div>
+    
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+ <form class="search_form" action='{% url "home:search" %}' method="post">
+    {% csrf_token %}
+    <select class="ui search selection dropdown" id='search-select' name='search_keyword'>
+              <option value="">신체기관/질환명</option>
+          {% for disease in disease_list %}
+              <option value="{{ disease }}">{{ disease }}</option>
+          {% endfor %}
+          {% for organ in organs_list %}
+              <option value="{{ organ }}">{{ organ }}</option>
+          {% endfor %}
+    </select>
+ </form>
+
+ <div class='search_result_container'>
+    <div class='result_recipe ui segment'>
+        {% if zipped_top50_recipe %}
+         <h3>{{ search_keyword }}에 추천드리는 레시피</h3>
+         {% for id, name, bookmark in zipped_top50_recipe %}
+            <div class='result_row'>
+              <a href='/home/recipe/{{ id }}'>
+                <div>{{ name }}</div>
+                <div><i class="bookmark outline icon"></i>{{ bookmark }}</div>
+              </a>
+            </div>
+            <div class="ui fitted divider"></div>
+         {% endfor %}
+        {% endif %}
+    </div>
+    <div class='result_item ui segment'>
+        {% if zipped_top50_item %}
+         <h3>{{ search_keyword }}에 추천드리는 건강기능식품</h3>
+         {% for id, name, heart in zipped_top50_item %}
+            <div class='result_row'>
+              <a href='/home/item/{{ id }}'>
+                <div>{{ name }}</div>
+                <div><i class="heart outline icon"></i>{{ heart }}</div>
+              </a>
+            </div>
+            <div class="ui fitted divider"></div>
+         {% endfor %}
+        {% endif %}
+    </div>
+ </div>
+
+
+<script>
+    $('#search-select').dropdown();
+</script>
+
+{% endblock %}

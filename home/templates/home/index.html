@@ -1,0 +1,94 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+      <button><a href="{% url 'home:logout' %}">로그아웃</a></button>
+      <div class='home_recipe_CF outer_box'>
+         <span>인공지능이 추천한,</span>
+         <h3>
+             {{ user.username }}님이 좋아할 레시피를 모아봤어요!
+             <i class="angle right icon"></i>
+          </h3>
+             <div class='list_container_recipes'>
+                 {% for id, name, disease, bookmarked, thumbnail in zipped_df_recipe_CF %}
+                        <a href='/home/recipe/{{ id }}'>
+                         <div class='ui segment' >
+                             <img src='{{ thumbnail }}' width="150" height="150">
+                             <h4>{{ name }}</h4>
+                             <h6>{{ disease }} 관련 음식</h6>
+                             <h6><i class="bookmark outline icon"></i>{{ bookmarked }}</h6>
+                         </div>
+                        </a>
+                        <div class="ui fitted divider"></div>
+                 {% endfor %}
+          </div>  
+      </div> 
+
+      <div class='home_item_CF outer_box'>
+         <span>인공지능이 추천한,</span>
+         <h3>
+             {{ user.username }}님이 관심있어하실만한 건강기능식품을 모아봤어요
+             <i class="angle right icon"></i>
+         </h3>
+             <div class='list_container_items'>
+                 {% for id, name, mfr, like in zipped_df_items_CF %}
+                    <a href='/home/item/{{ id }}'>
+                      <div class='ui segment'>
+                        <h6>{{ mfr }}</h6>
+                        <h4>{{ name }}</h4>
+                        <h6><i class="heart outline icon"></i>{{ like }}</h6>
+                      </div>
+                    </a>
+                    <div class="ui fitted divider"></div>
+                 {% endfor %}
+             </div> 
+      </div> 
+
+      <div class='home_recipe_bookmarked outer_box'>
+         <h3>
+             {{ user.username }}님이 최근 저장한 레시피
+             <i class="angle right icon"></i>
+          </h3>
+             <div class='list_container_recipes'>
+                 {% for id, name, disease, bookmarked,thumbnail in zipped_df_recent_recipe %}
+                        <a href='/home/recipe/{{ id }}'>
+                         <div class='ui segment' >
+                             <img src='{{ thumbnail }}' width="150" height="150">
+                             <h4>{{ name }}</h4>
+                             <h6>{{ disease }} 관련 음식</h6>
+                             <h6><i class="bookmark outline icon"></i>{{ bookmarked }}</h6>
+                         </div>
+                        </a>
+                        <div class="ui fitted divider"></div>
+                 {% endfor %}
+             </div>  
+      </div> 
+
+      <div class='home_item_liked outer_box'>
+         <h3>
+             {{ user.username }}님이 최근 찜한 건강기능식품
+             <i class="angle right icon"></i>
+         </h3>
+             <div class='list_container_items'>
+                 {% for id, name, mfr, like in zipped_df_recent_items %}
+                    <a href='/home/item/{{ id }}'>
+                       <div class='ui segment' >
+                          <h6>{{ mfr }}</h6>
+                          <h4>{{ name }}</h4>
+                          <h6><i class="heart outline icon"></i>{{ like }}</h6>
+                       </div>
+                    </a>
+                    <div class="ui fitted divider"></div>
+                 {% endfor %}
+             </div>
+      </div> 
+    {% else %}
+      <form action="" method="POST">
+          {% csrf_token %}
+          <input name='username' type='text'>
+          <input name='password' type='password'>
+          <input type='submit' value='로그인'>
+      </form>
+      <a href="{% url 'home:signup' %}">회원가입</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,286 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+            crossorigin="anonymous"
+        />
+
+        <title>Food_Image</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/analyze.css' %}" />
+    </head>
+
+    <body>
+		
+<!-- nav바 는 임시로 넣어둔 것 입니다. 필요가 없다면 <nav> 부터 </nav>까지 주석처리 해주세요!	 -->
+        <!-- <nav class="navbar navbar-expand-lg navbar-light nav-distance">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">음식 이미지 테스트</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+                                >Disabled</a
+                            >
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input
+                            class="form-control me-2"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                        />
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav> -->
+		
+		
+		    <section class="section">
+		<p class="sr-only">본 서비스는 Google의 인공지능 teachable machine 2.0을 활용하였습니다.</p>		
+        <h1 class="title">한국 음식 130종 이미지 테스트</h1>
+        <h3 class="subtitle">[인공지능 이미지 테스트] 이 이미지는 어떤 음식과 비슷할까?</h3>
+        <h5 class="subtitle">한국 음식 130종, 대표 사진 데이터로 학습한 인공지능이 비슷한 음식 특징을 찾아드립니다.</h5>		
+    </section>
+
+        <script
+            class="jsbin"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
+        ></script>
+        <div class="file-upload">
+            <button
+                class="file-upload-btn"
+                type="button"
+                onclick="$('.file-upload-input').trigger( 'click' )"
+            >
+                Add Image (이미지 파일 첨부)
+            </button>
+
+            <div class="image-upload-wrap">
+                <input
+                    class="file-upload-input"
+                    type="file"
+                    onchange="readURL(this);"
+                    accept="image/*"
+                />
+                <div class="drag-text">
+                    <h3>Drag and drop a file or select add Image
+					<br>(여기에 사진을 끌어다 놓거나, 이미지 파일을 선택해주세요)
+					</h3>
+                </div>
+            </div>
+            <div class="file-upload-content">
+                <img class="file-upload-image" id="food-image" src="#" alt="your image" />
+				<div id="label-container"></div>
+                <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">
+                        <span class="image-title">Uploaded Image</span>
+			<br>Remove 
+			<br>(다른 사진으로 재시도)
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="webcam-container"></div>
+        <div id="label-container"></div>
+        <!-- Optional JavaScript; choose one of the two! -->
+        <div class="ui fluid four item menu">
+          <a class="item" href='/home'><i class="home icon"></i></a>
+          <a class="item" href='/home/search/'><i class="search icon"></i></a>
+          <a class="item" href='/home/analyze/'><i class="upload icon"></i></a>
+          <a class="item" href='/home/comments/'><i class="comments outline
+         icon"></i></a>
+        </div>
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+            crossorigin="anonymous"
+        ></script>
+
+        <!-- Option 2: Separate Popper and Bootstrap JS -->
+        <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    -->
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.image-upload-wrap').hide();
+
+                        $('.file-upload-image').attr('src', e.target.result);
+                        $('.file-upload-content').show();
+
+                        $('.image-title').html(input.files[0].name);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+					init().then(function(){
+						console.log("hello")
+						predict();
+					});
+					// predict();
+                } else {
+                    removeUpload();
+                }
+            }
+
+            function removeUpload() {
+                $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+                $('.file-upload-content').hide();
+                $('.image-upload-wrap').show();
+            }
+            $('.image-upload-wrap').bind('dragover', function () {
+                $('.image-upload-wrap').addClass('image-dropping');
+            });
+            $('.image-upload-wrap').bind('dragleave', function () {
+                $('.image-upload-wrap').removeClass('image-dropping');
+            });
+        </script>
+        <script type="text/javascript">
+            // the link to your model provided by Teachable Machine export panel
+            const URL = 'https://teachablemachine.withgoogle.com/models/OdHsia0TQ/';
+
+            let model, webcam, labelContainer, maxPredictions;
+
+            // Load the image model and setup the webcam
+            async function init() {
+                const modelURL = URL + 'model.json';
+                const metadataURL = URL + 'metadata.json';
+
+                // load the model and metadata
+                // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+                // or files from your local hard drive
+                // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+
+                // Convenience function to setup a webcam
+
+                // append elements to the DOM
+
+                labelContainer = document.getElementById('label-container');
+                for (let i = 0; i < maxPredictions; i++) {
+                    // and class labels
+                    labelContainer.appendChild(document.createElement('div'));
+                }
+            }
+
+            // run the webcam image through the image model
+            async function predict() {
+                // predict can take in an image, video or canvas html element
+                var image = document.getElementById('food-image');
+                const prediction = await model.predict(image, false);
+                prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
+                
+                // (8/28) predicted_food_name: 예측한 음식명이 들어갈 변수입니다. 
+                // 모델이 오측 시 추후 유저가 올바른 음식명으로 재 포스트 할 수 있도록 var로 선언하였습니다
+                // 전반적인 로직은 다음과 같습니다: predicted_food_name 값을 ajax를 통해 get방식으로 기재된 url query로 넣어주어 -> views.py > pass_val 함수에서 요청이 들어온 url query를 가져오는 방식으로 진행하였습니다 
+                var predicted_food_name = prediction[0].className
+                console.log(predicted_food_name);
+                console.log('current url : '+window.location.href);              
+                    $.ajax(
+                    {
+                        type:'GET',
+                        contentType:'application/json;charset-utf-08',
+                        dataType:'json',
+                        url:' https://foodsafetykorea-kmeek.run.goorm.io/home/analyze/pass_val?value='+predicted_food_name ,
+                        success:function (data) {
+                            var reply=data.reply;
+                            if (reply=="success")
+                            {
+                                return;
+                            }
+                            else
+                                {
+                                alert("some error ocured in session agent")
+                                }
+                            }
+                        }
+                    );
+                
+				// for (let i = 0; i < maxPredictions; i++) {
+				// const classPrediction =
+				// prediction[i].className + ': ' + prediction[i].probability.toFixed(2);
+				// labelContainer.childNodes[i].innerHTML = classPrediction;
+					
+				// var bar = "<div class='bar-container position-relative container'><div class='" + prediction[i].className + "-box'></div><div class='d-flex justify-content-center align-items-center " + prediction[i].className + "-bar' style='width: " + barWidth + "'><span class='d-block percent-text'>" + Math.round(prediction[i].probability.toFixed(2) * 100) + "%</span></div></div>"		
+					
+				// }
+                
+            }
+                        
+        </script>
+
+        <div class="ui fluid four item menu nav_bottom_bar">
+              <a class="item" href='/home'><i class="home icon"></i></a>
+              <a class="item" href='/home/search/'><i class="search icon"></i></a>
+              <a class="item" href='/home/analyze/'><i class="upload icon"></i></a>
+              <a class="item" href='/home/comments/'><i class="comments outline icon"></i></a>
+         </div>
+    </body>
+    <footer class="footer">
+       <div class="container">
+         <p class="text-muted">Copyright ⓒ 2021 Team 03 | FoodSafetyKorea | All Rights Reserved</p>
+       </div>
+     </footer>
+
+    <!-- Copyright (c) 2021 by Aaron Vanston (https://codepen.io/aaronvanston/pen/yNYOXR)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
+</html>
